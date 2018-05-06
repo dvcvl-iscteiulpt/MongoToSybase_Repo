@@ -1,12 +1,14 @@
 package Connections;
 
+import softwareBrain.Brain;
+
 public class Main {
 
 	public static void main(String[] args) {
-		MongoConnection mongo = new MongoConnection();
-		SybaseConnection sybase = new SybaseConnection();
+		Brain a = new Brain();
+		a.startUp();
 		
-		mongo.makeConnection();
-		sybase.makeConnection("dba", "sql");
+//		SybaseConnection sybase = new SybaseConnection();
+//		sybase.makeConnection("dba", "sql");
 	}
 }
