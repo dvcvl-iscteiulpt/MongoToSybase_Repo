@@ -27,9 +27,8 @@ public class Brain {
 		MongoConnection mongo = new MongoConnection();
 		mongo.makeConnection();
 		docs = mongo.getHumidadeTemperaturaCollection();
-		HumidadeTemperatura teste = convertToHumidadeTemperatura(docs.get(0));
-		System.out.println(teste.getDataMedicao()+" "+ teste.getHoraMedicao()+" "+ teste.getValorMedicaoHumidade()+ " "+ teste.getValorMedicaoTemperatura());
 		updateDocs();
+		printHTList();
 	}
 	
 	// Recebe um documento e converte-o para uma instância da class humidadeTemperatura
@@ -50,6 +49,11 @@ public class Brain {
 		}
 		for( Document i: aux) {
 			docs.remove(i);
+		}
+	}
+	public void printHTList() {
+		for(HumidadeTemperatura it : arrayHT) {
+			System.out.println(it.toString());
 		}
 	}
 }

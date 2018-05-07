@@ -37,5 +37,11 @@ public class HumidadeTemperatura {
 		this.valorMedicaoTemperatura = valorMedicaoTemperatura;
 		this.valorMedicaoHumidade = valorMedicaoHumidade;
 	}
+	@Override
+	public String toString() {
+		return "HumidadeTemperatura [dataMedicao=" + dataMedicao + ", horaMedicao=" + horaMedicao
+				+ ", valorMedicaoTemperatura=" + valorMedicaoTemperatura + ", valorMedicaoHumidade="
+				+ valorMedicaoHumidade + "]";
+	}
 	
 }
