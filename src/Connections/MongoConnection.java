@@ -26,7 +26,7 @@ public class MongoConnection {
 //		this.user = user;
 //		this.pass = pass;
 		client = new MongoClient();
-		database = client.getDatabase("Monitor_De_Culturas");
+		database = client.getDatabase("HumidadeTemperatura");
 		for(String name : database.listCollectionNames())
 			System.out.println(name);
 		
@@ -34,14 +34,18 @@ public class MongoConnection {
 	}
 	public ArrayList<Document> getHumidadeTemperaturaCollection(){
 		ArrayList<Document> array = new ArrayList<Document>();
-		MongoCollection<Document> coll =database.getCollection("HumidadeTemperatura");
+		MongoCollection<Document> coll =database.getCollection("naoMigrados");
 		MongoCursor<Document> cursor = coll.find().iterator();
 		while (cursor.hasNext()) {
 			Document a=cursor.next();
 			array.add(a);
-			System.out.println(a);
+//			System.out.println(a);
 		}
 		return array;
+	}
+	
+	public void closeConnecion() {
+		client.close();
 	}
 	
 }
