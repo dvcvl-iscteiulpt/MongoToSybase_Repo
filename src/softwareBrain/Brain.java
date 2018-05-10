@@ -28,22 +28,12 @@ public class Brain {
 	}
 	public void startUp() {
 		MongoConnection mongo = new MongoConnection();
+		SybaseConnection sybase = new SybaseConnection();
 		mongo.makeConnection();
+		sybase.makeConnection("dba", "sql");
 		docs = mongo.getHumidadeTemperaturaCollection();
 		updateDocs();
-		SybaseConnection sybase = new SybaseConnection();
-		sybase.makeConnection("dba", "sql");
 		sybase.setHumTempCollection(arrayHT);
-	}
-	
-	public void changeDateFormat(String date) {
-		String[] aux = date.split("/");
-		String day = aux[0];
-		String month = aux[1];
-		String year = aux[2];
-		System.out.println(day);
-		System.out.println(month);
-		System.out.println(year);
 	}
 	
 	// Recebe um documento e converte-o para uma instância da class humidadeTemperatura
