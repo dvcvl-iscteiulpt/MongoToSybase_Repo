@@ -34,13 +34,15 @@ public class Brain {
 		docs = mongo.getHumidadeTemperaturaCollection();
 		updateDocs();
 		sybase.setHumTempCollection(arrayHT);
+		printHTList();
+//		mongo.insertMongo("07/03/1996", "21:56:02", "18.3", "67.9");
 	}
 	
 	// Recebe um documento e converte-o para uma instância da class humidadeTemperatura
 	public HumidadeTemperatura convertToHumidadeTemperatura(Document docToConvert) {
-		HumidadeTemperatura converted = new HumidadeTemperatura(docToConvert.get("date").toString(), docToConvert.get("time").toString(), 
-				Double.parseDouble(docToConvert.get("temperatura").toString()), 
-				Double.parseDouble(docToConvert.get("humidade").toString()));
+		HumidadeTemperatura converted = new HumidadeTemperatura(docToConvert.get(MongoConnection.dataS).toString(), docToConvert.get(MongoConnection.horaS).toString(), 
+				Double.parseDouble(docToConvert.get(MongoConnection.temperaturaS).toString()), 
+				Double.parseDouble(docToConvert.get(MongoConnection.humidadeS).toString()));
 		return converted;
 	}
 	
