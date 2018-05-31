@@ -30,12 +30,11 @@ public class Brain {
 		MongoConnection mongo = new MongoConnection();
 		SybaseConnection sybase = new SybaseConnection();
 		mongo.makeConnection();
-		sybase.makeConnection("dba", "sql");
+		sybase.makeConnection("importer", "importer");
 		docs = mongo.getHumidadeTemperaturaCollection();
 		updateDocs();
 		sybase.setHumTempCollection(arrayHT);
-		printHTList();
-//		mongo.insertMongo("07/03/1996", "21:56:02", "18.3", "67.9");
+//		printHTList();
 	}
 	
 	// Recebe um documento e converte-o para uma instância da class humidadeTemperatura

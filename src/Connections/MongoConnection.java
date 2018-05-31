@@ -29,21 +29,19 @@ public class MongoConnection {
 	private MongoCollection<Document> migrados;
 	private MongoCollection<Document> naoMigrados;
 	private MongoDatabase database;
-	public static String dataS = "dataMedicao";
-	public static String horaS = "horaMedicao";
-	public static String temperaturaS= "valorMedicaoTemperatura";
-	public static String humidadeS = "valorMedicaoHumidade";
-	public static String migrado = "migrado";
-	public static String naoMigrado ="naoMigrado";
+	public static String dataS = "date";
+	public static String horaS = "time";
+	public static String temperaturaS= "temperatura";
+	public static String humidadeS = "humidade";
+	public static String migrado = "Migrado";
+	public static String naoMigrado ="naoMigrados";
 	public MongoConnection() {
 		
 	}
 	
 	public void makeConnection() {
-//		this.user = user;
-//		this.pass = pass;
 		client = new MongoClient();
-		database = client.getDatabase("Monitor_De_Culturas");
+		database = client.getDatabase("HumidadeTemperatura");
 		migrados = database.getCollection(migrado);
 		naoMigrados = database.getCollection(naoMigrado);
 		for(String name : database.listCollectionNames())
@@ -61,7 +59,6 @@ public class MongoConnection {
 			BasicDBObject docToDelete = new BasicDBObject("_id", a.get("_id"));
 			naoMigrados.deleteOne(docToDelete);
 			migrados.insertOne(a);
-			System.out.println(a);
 		}
 		return array;
 	}

@@ -44,18 +44,23 @@ public class SybaseConnection{
 	}
 	
 	public void setHumTempCollection(ArrayList<HumidadeTemperatura> array) {
-		ArrayList<HumidadeTemperatura> tmp = array;
-		for(int i=0; i<array.size(); i++) {
-				executeQuery("Insert Into HumidadeTemperatura Values(('"+array.get(i).getDataMedicao()+"'), '"+
-						array.get(i).getHoraMedicao()+"', "+array.get(i).getValorMedicaoHumidade()+", "+array.get(i).getValorMedicaoTemperatura()+", "+"null)");
-				if (isImported)
+		ArrayList<HumidadeTemperatura> tmp = new ArrayList<HumidadeTemperatura>();
+		for(HumidadeTemperatura i : array)
+			tmp.add(i);
+		for(HumidadeTemperatura i : array) {
+				executeQuery("Insert Into dba.HumidadeTemperatura Values(('"+i.getDataMedicao()+"'), '"+
+						i.getHoraMedicao()+"', "+i.getValorMedicaoHumidade()+", "+i.getValorMedicaoTemperatura()+", "+"null)");
+				if (isImported) 
 					tmp.remove(i);
+		}
+		for(int i=0; i<array.size(); i+=6) {
+			executeQuery("Insert Into dba.Verifica Values(('"+array.get(i).getDataMedicao()+"'), '"+
+					array.get(i).getHoraMedicao()+"', "+array.get(i).getValorMedicaoHumidade()+", "+array.get(i).getValorMedicaoTemperatura()+", "+"null)");
 		}
 		try {
 			if(tmp.isEmpty()) {
 				conn.commit();
 				array.clear();
-				System.out.println("array cleared");
 			}else
 				conn.rollback();
 		}catch(SQLException e) {
